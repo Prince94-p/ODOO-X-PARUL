@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Traveloop | Trip Notes</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState } = React;
+
+    const TripNotes = () => {
+      const [searchQuery, setSearchQuery] = useState("");
+      const [activeTab, setActiveTab] = useState("All");
+
+      const notes = [
+        {
+          id: 1,
+          title: "Hotel check-in details - Rome stop",
+          body: "Check in after 2pm, room 302, breakfast included (7-10am). Remember to ask the concierge about the Colosseum underground tour tickets.",
+          timestamp: "Day 3: June 14 2026"
+        },
+        {
+          id: 2,
+          title: "Train transfer at Termini Station",
+          body: "Platform usually announced only 15 minutes before departure. Keep luggage close and grab a quick espresso at the cafe near platform 24.",
+          timestamp: "Day 5: June 16 2026"
+        },
+        {
+          id: 3,
+          title: "Packing reminder for Amalfi Coast",
+          body: "Don't forget to pack the waterproof phone pouch and the extra strength sunscreen. The boat tour requires non-slip shoes.",
+          timestamp: "Day 7: June 18 2026"
+        }
+      ];
+
+      return (
+        <div className="min-h-screen bg-gray-50 text-gray-800 flex flex-col pb-20">
+          <header className="bg-white border-b border-gray-200 h-16 flex items-center justify-between px-6 shrink-0 sticky top-0 z-50 shadow-sm">
+            <div className="flex items-center gap-2 cursor-pointer text-xl font-bold text-gray-900" onClick={() => window.location.href='dashboard.html'}>
+              <i className="ph-fill ph-paper-plane-tilt text-blue-600"></i>
+              <span>Traveloop</span>
+            </div>
+            <div className="w-9 h-9 rounded-full bg-gray-200 overflow-hidden border border-gray-200 cursor-pointer hover:opacity-80 transition-opacity">
+              <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80" alt="User Avatar" className="w-full h-full object-cover" />
+            </div>
+          </header>
+
+          <main className="max-w-4xl mx-auto w-full px-4 sm:px-6 py-8">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10">
+              <div className="relative w-full md:flex-1 md:max-w-md">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <i className="ph ph-magnifying-glass text-gray-400 text-lg"></i>
+                </div>
+                <input 
+                  type="text" 
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search notes..." 
+                  className="w-full pl-10 pr-4 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                />
+              </div>
+              <div className="flex flex-wrap items-center gap-2">
+                <button className="flex items-center gap-2 px-3 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 shadow-sm"><i className="ph ph-squares-four text-gray-500"></i> Group by</button>
+                <button className="flex items-center gap-2 px-3 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 shadow-sm"><i className="ph ph-funnel text-gray-500"></i> Filter</button>
+                <button className="flex items-center gap-2 px-3 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 shadow-sm"><i className="ph ph-sort-ascending text-gray-500"></i> Sort by...</button>
+              </div>
+            </div>
+
+            <section className="mb-8">
+              <h1 className="text-3xl font-bold text-gray-900 mb-6">Trip notes</h1>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                <div className="relative inline-block w-full sm:w-80">
+                  <select className="w-full pl-4 pr-10 py-2.5 bg-white border border-gray-300 rounded-md text-sm font-semibold text-gray-800 shadow-sm appearance-none focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 cursor-pointer">
+                    <option>Trip: Paris & Rome Adventure</option>
+                    <option>Trip: Weekend in Tokyo</option>
+                  </select>
+                  <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none"><i className="ph ph-caret-down text-gray-500"></i></div>
+                </div>
+                <button className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-2.5 bg-blue-600 text-white rounded-md text-sm font-medium shadow-sm hover:bg-blue-700">
+                  <i className="ph ph-plus font-bold"></i> Add Note
+                </button>
+              </div>
+
+              <div className="flex gap-2 border-b border-gray-200 pb-4">
+                <button onClick={() => setActiveTab("All")} className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${activeTab === "All" ? "bg-gray-800 text-white" : "bg-white border border-gray-300 text-gray-600 hover:bg-gray-50"}`}>All</button>
+                <button onClick={() => setActiveTab("by Day")} className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${activeTab === "by Day" ? "bg-gray-800 text-white" : "bg-white border border-gray-300 text-gray-600 hover:bg-gray-50"}`}>by Day</button>
+                <button onClick={() => setActiveTab("by stop")} className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${activeTab === "by stop" ? "bg-gray-800 text-white" : "bg-white border border-gray-300 text-gray-600 hover:bg-gray-50"}`}>by stop</button>
+              </div>
+            </section>
+
+            <section className="flex flex-col gap-4">
+              {notes.map((note) => (
+                <div key={note.id} className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow group flex flex-col">
+                  <div className="flex items-start justify-between mb-3">
+                    <h3 className="text-lg font-bold text-gray-900 leading-tight pr-4">{note.title}</h3>
+                    <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <button className="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded" title="Edit Note"><i className="ph ph-pencil-simple text-lg"></i></button>
+                      <button className="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded" title="Delete Note"><i className="ph ph-trash text-lg"></i></button>
+                    </div>
+                  </div>
+                  <p className="text-sm text-gray-600 mb-5 leading-relaxed flex-1">{note.body}</p>
+                  <div className="mt-auto">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-gray-50 border border-gray-100 rounded-md text-xs font-medium text-gray-500">
+                      <i className="ph ph-clock"></i> {note.timestamp}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </section>
+
+          </main>
+        </div>
+      );
+    };
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<TripNotes />);
+  </script>
+</body>
+</html>

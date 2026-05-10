@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Traveloop | Admin Analytics</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  
+  <!-- Recharts -->
+  <script src="https://unpkg.com/prop-types/prop-types.min.js"></script>
+  <script src="https://unpkg.com/recharts@2.1.9/umd/Recharts.js"></script>
+
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState } = React;
+    const { PieChart, Pie, LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } = window.Recharts;
+
+    const AdminAnalytics = () => {
+      const [searchQuery, setSearchQuery] = useState("");
+
+      const pieData = [
+        { name: 'Adventure & Sports', value: 450, color: '#3b82f6' },
+        { name: 'Cultural & Historic', value: 300, color: '#8b5cf6' },
+        { name: 'Relaxation & Spa', value: 200, color: '#10b981' },
+        { name: 'Food & Culinary', value: 150, color: '#f59e0b' },
+      ];
+
+      const lineData = [
+        { date: 'Oct 01', signups: 120, active: 400 },
+        { date: 'Oct 05', signups: 150, active: 450 },
+        { date: 'Oct 10', signups: 180, active: 520 },
+        { date: 'Oct 15', signups: 140, active: 480 },
+        { date: 'Oct 20', signups: 220, active: 610 },
+        { date: 'Oct 25', signups: 280, active: 750 },
+        { date: 'Oct 30', signups: 250, active: 700 },
+      ];
+
+      const barData = [
+        { name: 'Paris', volume: 850, trend: 12.4 },
+        { name: 'Bali', volume: 620, trend: 18.1 },
+        { name: 'Tokyo', volume: 590, trend: 22.3 },
+        { name: 'Rome', volume: 480, trend: 5.2 },
+        { name: 'New York', volume: 410, trend: 8.7 },
+      ];
+
+      return (
+        <div className="min-h-screen bg-gray-50 text-gray-800 flex flex-col pb-20">
+          <header className="bg-white border-b border-gray-200 h-16 flex items-center justify-between px-6 shrink-0 sticky top-0 z-50 shadow-sm">
+            <div className="flex items-center gap-2 cursor-pointer text-xl font-bold text-gray-900" onClick={() => window.location.href='dashboard.html'}>
+              <i className="ph-fill ph-paper-plane-tilt text-blue-600"></i>
+              <span>Traveloop Admin</span>
+            </div>
+            <div className="flex items-center gap-4">
+              <button className="text-gray-500 hover:text-blue-600 transition-colors relative">
+                <i className="ph ph-bell text-xl"></i>
+                <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white"></span>
+              </button>
+              <div className="w-9 h-9 rounded-full bg-blue-100 border border-blue-200 cursor-pointer flex items-center justify-center text-blue-700 font-bold text-sm hover:opacity-80 shadow-sm">
+                AD
+              </div>
+            </div>
+          </header>
+
+          <main className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+              <div className="relative w-full md:flex-1 md:max-w-md">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <i className="ph ph-magnifying-glass text-gray-400 text-lg"></i>
+                </div>
+                <input 
+                  type="text" 
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search reports or metrics..." 
+                  className="w-full pl-10 pr-4 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                />
+              </div>
+              <div className="flex flex-wrap items-center gap-2">
+                <button className="flex items-center gap-2 px-3 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 shadow-sm"><i className="ph ph-squares-four text-gray-500"></i> Group by</button>
+                <button className="flex items-center gap-2 px-3 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 shadow-sm"><i className="ph ph-funnel text-gray-500"></i> Filter</button>
+                <button className="flex items-center gap-2 px-3 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 shadow-sm"><i className="ph ph-sort-ascending text-gray-500"></i> Sort by...</button>
+              </div>
+            </div>
+
+            <div className="flex overflow-x-auto hide-scrollbar gap-2 mb-8 pb-1">
+              <button className="whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium text-gray-600 hover:bg-gray-200 bg-gray-100">Manage Users</button>
+              <button className="whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium text-gray-600 hover:bg-gray-200 bg-gray-100">Popular Cities</button>
+              <button className="whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium text-gray-600 hover:bg-gray-200 bg-gray-100">Popular Activities</button>
+              <button className="whitespace-nowrap px-4 py-2 rounded-full text-sm font-bold text-blue-700 bg-blue-100 shadow-sm border border-blue-200">User Trends and Analytics</button>
+            </div>
+
+            <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-6 sm:p-8 flex flex-col gap-10">
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center border-b border-gray-100 pb-10">
+                <div>
+                  <h2 className="text-xl font-bold text-gray-900 mb-6">Trip Categories Distribution</h2>
+                  <ul className="space-y-4">
+                    {pieData.map((entry, index) => (
+                      <li key={index} className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 border border-transparent hover:border-gray-100 transition-colors">
+                        <div className="flex items-center gap-3">
+                          <span className="w-4 h-4 rounded-full shadow-sm" style={{ backgroundColor: entry.color }}></span>
+                          <span className="text-sm font-semibold text-gray-700">{entry.name}</span>
+                        </div>
+                        <span className="text-sm font-bold text-gray-900">{entry.value} Trips</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="h-64 sm:h-80 w-full">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <PieChart>
+                      <Tooltip contentStyle={{ borderRadius: '8px', border: '1px solid #e5e7eb', boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)' }} itemStyle={{ color: '#1f2937', fontWeight: 600 }} />
+                      <Pie data={pieData} cx="50%" cy="50%" innerRadius={60} outerRadius={100} paddingAngle={5} dataKey="value" stroke="none">
+                        {pieData.map((entry, index) => <Cell key={`cell-${index}`} fill={entry.color} />)}
+                      </Pie>
+                    </PieChart>
+                  </ResponsiveContainer>
+                </div>
+              </div>
+
+              <div className="border-b border-gray-100 pb-10">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-2">
+                  <h2 className="text-xl font-bold text-gray-900">User Signups & Activity (Last 30 Days)</h2>
+                  <div className="flex items-center gap-4 text-sm font-medium">
+                    <span className="flex items-center gap-1.5 text-blue-600"><span className="w-2.5 h-2.5 rounded-full bg-blue-600"></span> Signups</span>
+                    <span className="flex items-center gap-1.5 text-emerald-500"><span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> Active Users</span>
+                  </div>
+                </div>
+                <div className="h-72 w-full mt-4">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <LineChart data={lineData} margin={{ top: 5, right: 20, left: -20, bottom: 5 }}>
+                      <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e5e7eb" />
+                      <XAxis dataKey="date" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#6b7280' }} dy={10} />
+                      <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#6b7280' }} />
+                      <Tooltip contentStyle={{ borderRadius: '8px', border: '1px solid #e5e7eb', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' }} />
+                      <Line type="monotone" dataKey="signups" stroke="#3b82f6" strokeWidth={3} dot={{ r: 4, strokeWidth: 2 }} activeDot={{ r: 6 }} />
+                      <Line type="monotone" dataKey="active" stroke="#10b981" strokeWidth={3} dot={{ r: 4, strokeWidth: 2 }} activeDot={{ r: 6 }} />
+                    </LineChart>
+                  </ResponsiveContainer>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                <div className="w-full">
+                  <h2 className="text-xl font-bold text-gray-900 mb-6">Top 5 Destinations by Volume</h2>
+                  <div className="h-64 w-full">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <BarChart data={barData} margin={{ top: 5, right: 0, left: -20, bottom: 5 }}>
+                        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e5e7eb" />
+                        <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#6b7280' }} dy={10} />
+                        <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#6b7280' }} />
+                        <Tooltip cursor={{ fill: '#f3f4f6' }} contentStyle={{ borderRadius: '8px', border: '1px solid #e5e7eb', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' }} />
+                        <Bar dataKey="volume" fill="#8b5cf6" radius={[4, 4, 0, 0]} barSize={40} />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+                <div className="w-full">
+                  <h2 className="text-xl font-bold text-gray-900 mb-6">Destination Metrics</h2>
+                  <div className="border border-gray-200 rounded-lg overflow-hidden">
+                    <table className="min-w-full divide-y divide-gray-200">
+                      <thead className="bg-gray-50">
+                        <tr>
+                          <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Destination</th>
+                          <th scope="col" className="px-6 py-3 text-right text-xs font-bold text-gray-500 uppercase tracking-wider">Trip Volume</th>
+                          <th scope="col" className="px-6 py-3 text-right text-xs font-bold text-gray-500 uppercase tracking-wider">Trend</th>
+                        </tr>
+                      </thead>
+                      <tbody className="bg-white divide-y divide-gray-100">
+                        {barData.map((dest, index) => (
+                          <tr key={index} className="hover:bg-gray-50 transition-colors">
+                            <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900">{dest.name}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 text-right">{dest.volume}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-right">
+                              <span className="inline-flex items-center gap-1 text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded font-medium">
+                                <i className="ph-bold ph-trend-up"></i> +{dest.trend}%
+                              </span>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </main>
+        </div>
+      );
+    };
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<AdminAnalytics />);
+  </script>
+</body>
+</html>

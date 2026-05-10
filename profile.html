@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Traveloop | Profile & Settings</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  
+  <!-- Odoo-inspired Enterprise Typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col">
+
+  <!-- Top Header -->
+  <header class="bg-white border-b border-gray-200 h-16 flex items-center justify-between px-6 shrink-0 sticky top-0 z-20 shadow-sm">
+    <div class="flex items-center gap-2 cursor-pointer text-xl font-bold text-gray-900" onclick="window.location.href='dashboard.html'">
+      <i class="ph-fill ph-paper-plane-tilt text-blue-600"></i>
+      <span>Traveloop</span>
+    </div>
+    <div class="flex items-center gap-4">
+      <button class="text-gray-500 hover:text-blue-600 transition-colors">
+        <i class="ph ph-bell text-xl"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="flex-1 w-full max-w-6xl mx-auto px-4 py-8 sm:py-10">
+    
+    <!-- User Details Banner (Top Section) -->
+    <section class="bg-white border border-gray-200 rounded-lg shadow-sm p-6 sm:p-8 mb-8">
+      <div class="flex flex-col md:flex-row gap-8 items-start">
+        
+        <!-- Left: Profile Picture -->
+        <div class="flex flex-col items-center shrink-0">
+          <div class="relative w-32 h-32 rounded-full overflow-hidden border-2 border-gray-200 group cursor-pointer bg-gray-100">
+            <img 
+              src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=300&q=80" 
+              alt="Profile" 
+              class="w-full h-full object-cover"
+            >
+            <div class="absolute inset-0 bg-black/50 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+              <i class="ph ph-camera text-white text-2xl mb-1"></i>
+              <span class="text-white text-xs font-medium">Upload Photo</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Editable Form Area -->
+        <div class="flex-1 w-full">
+          <h2 class="text-xl font-bold text-gray-900 mb-6 border-b border-gray-100 pb-2">Profile Settings</h2>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-6">
+            <!-- Name Input -->
+            <div class="flex flex-col">
+              <label class="text-sm font-medium text-gray-700 mb-1.5">Full Name</label>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <i class="ph ph-user text-gray-400 text-lg"></i>
+                </div>
+                <input 
+                  type="text" 
+                  value="Dwij Patel"
+                  class="w-full pl-10 pr-3 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
+                >
+              </div>
+            </div>
+
+            <!-- Email Input -->
+            <div class="flex flex-col">
+              <label class="text-sm font-medium text-gray-700 mb-1.5">Email Address</label>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <i class="ph ph-envelope-simple text-gray-400 text-lg"></i>
+                </div>
+                <input 
+                  type="email" 
+                  value="dwij.patel@example.com"
+                  class="w-full pl-10 pr-3 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
+                >
+              </div>
+            </div>
+
+            <!-- Language Dropdown -->
+            <div class="flex flex-col sm:col-span-2 md:col-span-1">
+              <label class="text-sm font-medium text-gray-700 mb-1.5">Language Preference</label>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <i class="ph ph-globe text-gray-400 text-lg"></i>
+                </div>
+                <select 
+                  class="w-full pl-10 pr-10 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm appearance-none focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
+                >
+                  <option value="English" selected>English</option>
+                  <option value="Spanish">Spanish</option>
+                  <option value="French">French</option>
+                  <option value="German">German</option>
+                </select>
+                <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                  <i class="ph ph-caret-down text-gray-400"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="flex items-center justify-start gap-4 mt-8">
+            <button class="px-5 py-2.5 bg-blue-600 text-white rounded-md text-sm font-medium shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
+              Save Changes
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Danger Zone -->
+    <div class="flex justify-end mb-10">
+      <button class="flex items-center gap-2 px-4 py-2 bg-white border border-red-200 rounded-md text-sm font-medium text-red-600 shadow-sm hover:bg-red-50 hover:border-red-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors">
+        <i class="ph ph-warning-circle"></i>
+        Delete Account
+      </button>
+    </div>
+
+    <!-- Trip Grids (Bottom Section) -->
+    <div class="space-y-10">
+      
+      <!-- Preplanned Trips Section -->
+      <section>
+        <h2 class="text-lg font-medium text-gray-600 mb-4 border-b border-gray-200 pb-2">Preplanned Trips (Saved Destinations)</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          
+          <!-- Card 1 -->
+          <div class="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col">
+            <div class="h-40 w-full bg-gray-200 relative">
+              <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=600&q=80" alt="Summer in Kyoto" class="w-full h-full object-cover">
+            </div>
+            <div class="p-4 flex flex-col flex-1">
+              <h3 class="text-base font-bold text-gray-900 mb-4">Summer in Kyoto</h3>
+              <div class="mt-auto">
+                <button class="w-full py-2 px-4 bg-white border border-gray-300 rounded text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors">
+                  View Trip
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col">
+            <div class="h-40 w-full bg-gray-200 relative">
+              <img src="https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99?auto=format&fit=crop&w=600&q=80" alt="Swiss Alps Retreat" class="w-full h-full object-cover">
+            </div>
+            <div class="p-4 flex flex-col flex-1">
+              <h3 class="text-base font-bold text-gray-900 mb-4">Swiss Alps Retreat</h3>
+              <div class="mt-auto">
+                <button class="w-full py-2 px-4 bg-white border border-gray-300 rounded text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors">
+                  View Trip
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col">
+            <div class="h-40 w-full bg-gray-200 relative">
+              <img src="https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=600&q=80" alt="Maldives Getaway" class="w-full h-full object-cover">
+            </div>
+            <div class="p-4 flex flex-col flex-1">
+              <h3 class="text-base font-bold text-gray-900 mb-4">Maldives Getaway</h3>
+              <div class="mt-auto">
+                <button class="w-full py-2 px-4 bg-white border border-gray-300 rounded text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors">
+                  View Trip
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Previous Trips Section -->
+      <section>
+        <h2 class="text-lg font-medium text-gray-600 mb-4 border-b border-gray-200 pb-2">Previous Trips</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          
+          <!-- Card 4 -->
+          <div class="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col">
+            <div class="h-40 w-full bg-gray-200 relative">
+              <img src="https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=600&q=80" alt="New York Weekend" class="w-full h-full object-cover">
+            </div>
+            <div class="p-4 flex flex-col flex-1">
+              <h3 class="text-base font-bold text-gray-900 mb-4">New York Weekend</h3>
+              <div class="mt-auto">
+                <button class="w-full py-2 px-4 bg-white border border-gray-300 rounded text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors">
+                  View Trip
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 5 -->
+          <div class="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col">
+            <div class="h-40 w-full bg-gray-200 relative">
+              <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=600&q=80" alt="Bali Backpacking" class="w-full h-full object-cover">
+            </div>
+            <div class="p-4 flex flex-col flex-1">
+              <h3 class="text-base font-bold text-gray-900 mb-4">Bali Backpacking</h3>
+              <div class="mt-auto">
+                <button class="w-full py-2 px-4 bg-white border border-gray-300 rounded text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors">
+                  View Trip
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 6 -->
+          <div class="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col">
+            <div class="h-40 w-full bg-gray-200 relative">
+              <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=600&q=80" alt="London Business" class="w-full h-full object-cover">
+            </div>
+            <div class="p-4 flex flex-col flex-1">
+              <h3 class="text-base font-bold text-gray-900 mb-4">London Business</h3>
+              <div class="mt-auto">
+                <button class="w-full py-2 px-4 bg-white border border-gray-300 rounded text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors">
+                  View Trip
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+    
+  </main>
+
+</body>
+</html>

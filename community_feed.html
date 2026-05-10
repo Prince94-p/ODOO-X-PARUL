@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Traveloop | Community Feed</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState } = React;
+
+    const CommunityFeed = () => {
+      const [searchQuery, setSearchQuery] = useState("");
+
+      const communityPosts = [
+        {
+          id: 1,
+          author: "Divya Patel",
+          avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80",
+          time: "2 hours ago",
+          title: "5 Days in Bali on a Budget",
+          description: "Just got back from an amazing 5-day trip to Bali! Managed to keep the budget strictly under $500 while exploring Ubud, surfing in Canggu, and eating the best local food. Check out my full itinerary!",
+          saves: "124",
+          likes: "89"
+        },
+        {
+          id: 2,
+          author: "Marcus Chen",
+          avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80",
+          time: "1 day ago",
+          title: "The Ultimate Tokyo Tech & Culture Tour",
+          description: "Mapped out a crazy intense 7-day trip around Tokyo blending traditional shrines with the best gaming arcades and tech spots in Akihabara. Highly recommend the teamLab Planets exhibit!",
+          saves: "412",
+          likes: "256"
+        },
+        {
+          id: 3,
+          author: "Sarah Jenkins",
+          avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=150&q=80",
+          time: "3 days ago",
+          title: "Weekend Backpacking in the Swiss Alps",
+          description: "For all the hikers out there, I compiled the exact train routes and mountain lodges we used for our 3-day trek near Zermatt. The views of the Matterhorn were unreal.",
+          saves: "85",
+          likes: "120"
+        },
+        {
+          id: 4,
+          author: "Liam O'Connor",
+          avatar: "https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?auto=format&fit=crop&w=150&q=80",
+          time: "1 week ago",
+          title: "Hidden Gems of Rome",
+          description: "Skip the massive lines at the Colosseum. Here is my itinerary for exploring the quieter, incredibly beautiful neighborhoods of Trastevere and some amazing local pasta spots you won't find on TikTok.",
+          saves: "530",
+          likes: "401"
+        }
+      ];
+
+      return (
+        <div className="min-h-screen bg-gray-50 text-gray-800 flex flex-col">
+          <header className="bg-white border-b border-gray-200 h-16 flex items-center justify-between px-6 shrink-0 sticky top-0 z-50 shadow-sm">
+            <div className="flex items-center gap-2 cursor-pointer text-xl font-bold text-gray-900" onClick={() => window.location.href='dashboard.html'}>
+              <i className="ph-fill ph-paper-plane-tilt text-blue-600"></i>
+              <span>Traveloop</span>
+            </div>
+            <div className="w-9 h-9 rounded-full bg-gray-200 overflow-hidden border border-gray-200 cursor-pointer hover:opacity-80 transition-opacity">
+              <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80" alt="User Avatar" className="w-full h-full object-cover" />
+            </div>
+          </header>
+
+          <main className="max-w-4xl mx-auto w-full px-4 py-8">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10">
+              <div className="relative w-full md:flex-1 md:max-w-md">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <i className="ph ph-magnifying-glass text-gray-400 text-lg"></i>
+                </div>
+                <input 
+                  type="text" 
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search community trips or activities..." 
+                  className="w-full pl-10 pr-4 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
+                />
+              </div>
+              <div className="flex flex-wrap items-center gap-2">
+                <button className="flex items-center gap-2 px-3 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 shadow-sm"><i className="ph ph-squares-four text-gray-500"></i> Group by</button>
+                <button className="flex items-center gap-2 px-3 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 shadow-sm"><i className="ph ph-funnel text-gray-500"></i> Filter</button>
+                <button className="flex items-center gap-2 px-3 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 shadow-sm"><i className="ph ph-sort-ascending text-gray-500"></i> Sort by...</button>
+              </div>
+            </div>
+
+            <section>
+              <div className="flex items-center justify-between border-b border-gray-200 pb-2 mb-6">
+                <h2 className="text-xl font-medium text-gray-600">Community Experiences</h2>
+              </div>
+              
+              <div className="flex flex-col gap-6">
+                {communityPosts.map((post) => (
+                  <div key={post.id} className="flex flex-col sm:flex-row gap-3 sm:gap-4 group">
+                    <div className="hidden sm:block shrink-0 mt-1">
+                      <div className="w-12 h-12 rounded-full overflow-hidden border border-gray-200 shadow-sm cursor-pointer hover:opacity-80 transition-opacity">
+                        <img src={post.avatar} alt={post.author} className="w-full h-full object-cover" />
+                      </div>
+                    </div>
+
+                    <div className="bg-white border border-gray-200 rounded-xl p-5 flex-1 shadow-sm hover:shadow-md transition-shadow">
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="flex items-center gap-3">
+                          <div className="sm:hidden w-10 h-10 rounded-full overflow-hidden border border-gray-200 shrink-0 cursor-pointer">
+                            <img src={post.avatar} alt={post.author} className="w-full h-full object-cover" />
+                          </div>
+                          <div>
+                            <h3 className="text-base font-bold text-gray-900 cursor-pointer hover:text-blue-600">{post.author}</h3>
+                            <p className="text-xs font-medium text-gray-400">{post.time}</p>
+                          </div>
+                        </div>
+                        <button className="text-gray-400 hover:text-gray-600"><i className="ph ph-dots-three text-2xl"></i></button>
+                      </div>
+
+                      <div className="mb-5">
+                        <h4 className="text-lg font-bold text-gray-900 mb-2 cursor-pointer hover:text-blue-600">{post.title}</h4>
+                        <p className="text-sm text-gray-600 leading-relaxed">{post.description}</p>
+                      </div>
+
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4 border-t border-gray-100">
+                        <div className="flex items-center gap-4 order-2 sm:order-1 text-sm font-medium text-gray-500">
+                          <span className="flex items-center gap-1.5 hover:text-blue-600 cursor-pointer"><i className="ph ph-heart text-lg"></i> {post.likes} Likes</span>
+                          <span className="flex items-center gap-1.5 hover:text-blue-600 cursor-pointer"><i className="ph ph-bookmark-simple text-lg"></i> {post.saves} Saves</span>
+                        </div>
+                        <div className="flex items-center gap-2 order-1 sm:order-2 w-full sm:w-auto">
+                          <button className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2 bg-white border border-blue-600 text-blue-600 rounded-md text-sm font-medium hover:bg-blue-50">View Itinerary</button>
+                          <button className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-md text-sm font-medium hover:bg-gray-50"><i className="ph ph-copy text-lg"></i> Copy Trip</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          </main>
+        </div>
+      );
+    };
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<CommunityFeed />);
+  </script>
+</body>
+</html>

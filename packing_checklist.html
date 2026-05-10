@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Traveloop | Packing Checklist</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    const PackingChecklist = () => {
+      const [searchQuery, setSearchQuery] = useState("");
+
+      const [categories, setCategories] = useState([
+        {
+          id: 1,
+          name: "Documents",
+          items: [
+            { id: 101, text: "Passport", checked: true },
+            { id: 102, text: "Flight Tickets (printed)", checked: true },
+            { id: 103, text: "Travel Insurance", checked: true },
+            { id: 104, text: "Hotel booking confirmation", checked: false },
+          ]
+        },
+        {
+          id: 2,
+          name: "Clothing",
+          items: [
+            { id: 201, text: "Casual Shirts", checked: true },
+            { id: 202, text: "Trousers / jeans", checked: false },
+            { id: 203, text: "Comfortable walking shoes", checked: false },
+            { id: 204, text: "Light jacket / windbreaker", checked: false },
+          ]
+        },
+        {
+          id: 3,
+          name: "Electronics",
+          items: [
+            { id: 301, text: "Phone charger", checked: true },
+            { id: 302, text: "Universal power adapter", checked: false },
+            { id: 303, text: "Earphones / headphones", checked: false },
+          ]
+        }
+      ]);
+
+      const [progress, setProgress] = useState({ packed: 0, total: 0, percentage: 0 });
+
+      useEffect(() => {
+        let packedCount = 0;
+        let totalCount = 0;
+        
+        categories.forEach(cat => {
+          cat.items.forEach(item => {
+            totalCount++;
+            if (item.checked) packedCount++;
+          });
+        });
+        
+        setProgress({
+          packed: packedCount,
+          total: totalCount,
+          percentage: totalCount > 0 ? Math.round((packedCount / totalCount) * 100) : 0
+        });
+      }, [categories]);
+
+      const toggleItem = (categoryId, itemId) => {
+        setCategories(prevCats => 
+          prevCats.map(cat => {
+            if (cat.id !== categoryId) return cat;
+            return {
+              ...cat,
+              items: cat.items.map(item => 
+                item.id === itemId ? { ...item, checked: !item.checked } : item
+              )
+            };
+          })
+        );
+      };
+
+      const resetAll = () => {
+        setCategories(prevCats => 
+          prevCats.map(cat => ({
+            ...cat,
+            items: cat.items.map(item => ({ ...item, checked: false }))
+          }))
+        );
+      };
+
+      return (
+        <div className="min-h-screen bg-gray-50 text-gray-800 flex flex-col">
+          <header className="bg-white border-b border-gray-200 h-16 flex items-center justify-between px-6 shrink-0 sticky top-0 z-50 shadow-sm">
+            <div className="flex items-center gap-2 cursor-pointer text-xl font-bold text-gray-900" onClick={() => window.location.href='dashboard.html'}>
+              <i className="ph-fill ph-paper-plane-tilt text-blue-600"></i>
+              <span>Traveloop</span>
+            </div>
+            <div className="w-9 h-9 rounded-full bg-gray-200 overflow-hidden border border-gray-200 cursor-pointer hover:opacity-80 transition-opacity">
+              <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80" alt="User Avatar" className="w-full h-full object-cover" />
+            </div>
+          </header>
+
+          <main className="max-w-4xl mx-auto w-full px-4 py-8 pb-24">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+              <div className="relative w-full md:flex-1 md:max-w-md">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <i className="ph ph-magnifying-glass text-gray-400 text-lg"></i>
+                </div>
+                <input 
+                  type="text" 
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search checklist items..." 
+                  className="w-full pl-10 pr-4 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
+                />
+              </div>
+              <div className="flex flex-wrap items-center gap-2">
+                <button className="flex items-center gap-2 px-3 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 shadow-sm"><i className="ph ph-squares-four text-gray-500"></i> Group by</button>
+                <button className="flex items-center gap-2 px-3 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 shadow-sm"><i className="ph ph-funnel text-gray-500"></i> Filter</button>
+                <button className="flex items-center gap-2 px-3 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 shadow-sm"><i className="ph ph-sort-ascending text-gray-500"></i> Sort by...</button>
+              </div>
+            </div>
+
+            <section className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm mb-8">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                <div>
+                  <h2 className="text-sm font-medium text-gray-500 mb-1">Select Itinerary</h2>
+                  <div className="relative inline-block w-full sm:w-72">
+                    <select className="w-full pl-4 pr-10 py-2.5 bg-gray-50 border border-gray-300 rounded-md text-sm font-semibold text-gray-800 shadow-sm appearance-none focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors cursor-pointer">
+                      <option>Trip: Paris & Rome Adventure</option>
+                      <option>Trip: Weekend in Tokyo</option>
+                    </select>
+                    <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none"><i className="ph ph-caret-down text-gray-500"></i></div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 text-blue-600 bg-blue-50 px-3 py-1.5 rounded-md text-sm font-semibold border border-blue-100">
+                  <i className="ph-fill ph-check-circle text-lg"></i>
+                  {progress.percentage}% Complete
+                </div>
+              </div>
+
+              <div>
+                <div className="flex justify-between items-end mb-2">
+                  <span className="text-base font-bold text-gray-900">Packing Progress</span>
+                  <span className="text-sm font-medium text-gray-600">{progress.packed}/{progress.total} items packed</span>
+                </div>
+                <div className="w-full h-3 bg-gray-100 rounded-full overflow-hidden">
+                  <div className="h-full bg-emerald-500 transition-all duration-500 ease-out rounded-full" style={{ width: `${progress.percentage}%` }}></div>
+                </div>
+              </div>
+            </section>
+
+            <section className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden mb-10">
+              {categories.map((category, index) => {
+                const packedInCategory = category.items.filter(i => i.checked).length;
+                const totalInCategory = category.items.length;
+                
+                return (
+                  <div key={category.id} className={index !== 0 ? 'border-t border-gray-200' : ''}>
+                    <div className="bg-gray-50 px-6 py-3 flex justify-between items-center border-b border-gray-200">
+                      <h3 className="text-sm font-bold text-gray-700 uppercase tracking-wider">{category.name}</h3>
+                      <span className="text-xs font-semibold text-gray-500 bg-gray-200 px-2 py-0.5 rounded-full">{packedInCategory}/{totalInCategory}</span>
+                    </div>
+
+                    <div className="flex flex-col divide-y divide-gray-100">
+                      {category.items.map(item => (
+                        <label key={item.id} className={`flex items-center px-6 py-3.5 cursor-pointer hover:bg-gray-50 transition-colors group ${item.checked ? 'bg-gray-50/50' : ''}`}>
+                          <div className="relative flex items-center justify-center">
+                            <input 
+                              type="checkbox" 
+                              checked={item.checked}
+                              onChange={() => toggleItem(category.id, item.id)}
+                              className="peer appearance-none w-5 h-5 border border-gray-300 rounded bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-blue-500 transition-colors cursor-pointer"
+                            />
+                            <i className="ph-bold ph-check text-white absolute text-sm opacity-0 peer-checked:opacity-100 pointer-events-none"></i>
+                          </div>
+                          <span className={`ml-4 text-base transition-all duration-200 ${item.checked ? 'text-gray-400 line-through' : 'text-gray-800 font-medium'}`}>{item.text}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
+            </section>
+
+            <section className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <button className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-2.5 bg-blue-600 text-white rounded-md text-sm font-medium shadow-sm hover:bg-blue-700">
+                <i className="ph ph-plus font-bold"></i> Add item to checklist
+              </button>
+              
+              <div className="flex items-center gap-3 w-full sm:w-auto">
+                <button onClick={resetAll} className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-6 py-2.5 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">
+                  Reset all
+                </button>
+                <button className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-6 py-2.5 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">
+                  <i className="ph ph-share-network text-lg"></i> Share Checklist
+                </button>
+              </div>
+            </section>
+
+          </main>
+        </div>
+      );
+    };
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<PackingChecklist />);
+  </script>
+</body>
+</html>

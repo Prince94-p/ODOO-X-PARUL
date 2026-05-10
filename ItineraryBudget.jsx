@@ -1,0 +1,170 @@
+import React, { useState } from 'react';
+
+const ItineraryBudget = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const dayOneActivities = [
+    {
+      id: 1,
+      time: "09:00 AM",
+      title: "Airport Transfer (CDG to City Center)",
+      description: "Private shuttle service arranged from Charles de Gaulle Airport directly to the hotel.",
+      expenseCost: "$65.00",
+      expenseCategory: "Transport",
+      icon: "ph-car"
+    },
+    {
+      id: 2,
+      time: "10:30 AM",
+      title: "Hotel Check-in & Bag Drop",
+      description: "Arrive at Le Meurice Hotel. Drop off luggage and freshen up before heading out.",
+      expenseCost: "$0.00",
+      expenseCategory: "Accommodation",
+      icon: "ph-buildings"
+    },
+    {
+      id: 3,
+      time: "12:30 PM",
+      title: "Lunch at Le Relais de l'Entrecôte",
+      description: "Famous Parisian steak frites in a classic brasserie setting. Wait times may vary.",
+      expenseCost: "$45.00",
+      expenseCategory: "Dining",
+      icon: "ph-fork-knife"
+    },
+    {
+      id: 4,
+      time: "03:00 PM",
+      title: "Eiffel Tower Guided Tour",
+      description: "Skip-the-line access to the 2nd floor and summit. Includes historical commentary.",
+      expenseCost: "$85.00",
+      expenseCategory: "Sightseeing",
+      icon: "ph-binoculars"
+    }
+  ];
+
+  return (
+    <div className="min-h-screen bg-gray-50 text-gray-800 font-sans flex flex-col">
+      
+
+
+      {/* Main Content Area */}
+      <main className="max-w-6xl mx-auto w-full px-4 py-8 animate-fade-in-up">
+        
+        {/* Odoo-Style Control Bar (Search & Filter) */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10">
+          
+          {/* Search Input */}
+          <div className="relative w-full md:flex-1 md:max-w-md">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <i className="ph ph-magnifying-glass text-gray-400 text-lg"></i>
+            </div>
+            <input 
+              type="text" 
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search itinerary or expenses..." 
+              className="w-full pl-10 pr-4 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
+            />
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex flex-wrap items-center gap-2">
+            <button className="flex items-center gap-2 px-3 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <i className="ph ph-squares-four text-gray-500"></i> Group by
+            </button>
+            <button className="flex items-center gap-2 px-3 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <i className="ph ph-funnel text-gray-500"></i> Filter
+            </button>
+            <button className="flex items-center gap-2 px-3 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <i className="ph ph-sort-ascending text-gray-500"></i> Sort by...
+            </button>
+          </div>
+        </div>
+
+        {/* Page Title */}
+        <div className="text-center mb-12">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Itinerary: Paris, France</h1>
+          <p className="text-sm font-medium text-gray-500">Total Trip Dates: Oct 12, 2026 - Oct 18, 2026</p>
+        </div>
+
+        {/* Timeline Container (The Core UI) */}
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 relative">
+          
+          {/* Day Marker (Left) */}
+          <div className="lg:w-40 shrink-0 z-10">
+            <div className="sticky top-24 bg-gray-800 text-white px-4 py-2.5 rounded-lg font-medium shadow-sm flex items-center justify-center lg:justify-start gap-2 w-max">
+              <i className="ph ph-calendar-check text-lg"></i>
+              Day 1 - Oct 12
+            </div>
+          </div>
+
+          {/* Activity & Expense Flow (Center & Right) */}
+          <div className="flex-1 flex flex-col relative pt-2 lg:pt-0">
+            
+            {/* Main vertical timeline connecting line (desktop only) */}
+            <div className="absolute top-8 left-8 bottom-10 w-0.5 bg-gray-200 hidden md:block z-0"></div>
+
+            {dayOneActivities.map((activity, index) => {
+              const isLast = index === dayOneActivities.length - 1;
+
+              return (
+                <div key={activity.id} className="relative mb-6 md:mb-10 w-full group">
+                  
+                  {/* Container for Activity & Expense */}
+                  <div className="flex flex-col md:flex-row gap-4 relative z-10 pl-0 md:pl-20">
+                    
+                    {/* Time indicator circle (desktop) */}
+                    <div className="hidden md:flex absolute left-5 top-6 w-6 h-6 bg-white border-2 border-blue-500 rounded-full items-center justify-center shadow-sm z-20 group-hover:bg-blue-50 transition-colors"></div>
+
+                    {/* Activity Card (Wider, Center) */}
+                    <div className="bg-white border border-gray-200 rounded-xl p-5 flex-1 shadow-sm hover:shadow-md transition-shadow relative">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded-md flex items-center gap-1"><i className="ph ph-clock"></i> {activity.time}</span>
+                      </div>
+                      <h3 className="text-lg font-bold text-gray-900 mb-1.5">{activity.title}</h3>
+                      <p className="text-sm text-gray-500 leading-relaxed">{activity.description}</p>
+                    </div>
+
+                    {/* Connection Indicator (Mobile - hidden on md) */}
+                    {!isLast && (
+                      <div className="flex md:hidden justify-center my-[-10px] z-0">
+                        <i className="ph ph-arrow-down text-gray-300 text-xl"></i>
+                      </div>
+                    )}
+
+                    {/* Expense Card (Narrower, Right) */}
+                    {/* On mobile: this card tucks right below the activity card closely. On desktop: it aligns perfectly next to it. */}
+                    <div className="bg-white border border-gray-200 rounded-xl p-4 w-full md:w-56 shadow-sm flex flex-row md:flex-col items-center md:items-start justify-between md:justify-center gap-2 shrink-0 group-hover:border-blue-200 transition-colors">
+                      <div className="flex items-center gap-2">
+                        <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 shrink-0">
+                          <i className={`ph ${activity.icon} text-lg`}></i>
+                        </div>
+                        <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">{activity.expenseCategory}</span>
+                      </div>
+                      <div className="text-lg font-bold text-gray-900 text-right md:text-left mt-0 md:mt-2">
+                        {activity.expenseCost}
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              );
+            })}
+
+            {/* Day Summary */}
+            <div className="flex justify-end pt-4 border-t border-gray-200 mt-2 pl-0 md:pl-20">
+              <div className="bg-gray-100 rounded-lg px-6 py-3 border border-gray-200 flex items-center gap-4 shadow-sm">
+                <span className="text-sm font-medium text-gray-600 uppercase tracking-wide">Day 1 Total:</span>
+                <span className="text-xl font-bold text-gray-900">$195.00</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </main>
+    </div>
+  );
+};
+
+export default ItineraryBudget;

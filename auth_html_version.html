@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Traveloop | Authentication</title>
+  <meta name="description" content="Join Traveloop, the modern travel planning startup. Log in or register to start your journey.">
+  <link rel="stylesheet" href="styles.css">
+  <!-- Google Fonts: Outfit -->
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body>
+  
+  <div class="background-elements">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <div class="app-container">
+    
+    <!-- LEFT SIDE — LOGIN SCREEN -->
+    <div class="container-left">
+      <div class="login-card">
+        
+        <div class="profile-placeholder">
+          <i class="ph ph-user"></i>
+        </div>
+        
+        <div class="card-header">
+          <h2>Welcome Back</h2>
+          <p class="subtitle">Log in to your Traveloop account</p>
+        </div>
+        
+        <form class="login-form" onsubmit="event.preventDefault(); const user = document.getElementById('login-username').value; if(user.toLowerCase() === 'admin') { window.location.href='admin_analytics.html'; } else { window.location.href='dashboard.html'; }">
+          <div class="input-group">
+            <input type="text" id="login-username" placeholder=" " required>
+            <label for="login-username">Username</label>
+            <i class="ph ph-envelope-simple"></i>
+          </div>
+          
+          <div class="input-group">
+            <input type="password" id="login-password" placeholder=" " required>
+            <label for="login-password">Password</label>
+            <i class="ph ph-lock-key"></i>
+          </div>
+          
+          <button type="submit" class="btn btn-small btn-primary">Login</button>
+        </form>
+        
+      </div>
+    </div>
+
+    <!-- RIGHT SIDE — REGISTRATION SCREEN -->
+    <div class="container-right">
+      <div class="register-card">
+        
+        <div class="photo-upload">
+          <i class="ph ph-camera-plus"></i>
+        </div>
+        
+        <div class="card-header">
+          <h2>Join Traveloop</h2>
+          <p class="subtitle">Start your personalized journey today</p>
+        </div>
+        
+        <form class="register-form" onsubmit="event.preventDefault(); window.location.href='dashboard.html';">
+          <div class="form-grid">
+            
+            <!-- Left column -->
+            <div class="column">
+              <div class="input-group">
+                <input type="text" id="reg-fname" placeholder=" " required>
+                <label for="reg-fname">First Name</label>
+                <i class="ph ph-identification-card"></i>
+              </div>
+              <div class="input-group">
+                <input type="email" id="reg-email" placeholder=" " required>
+                <label for="reg-email">Email Address</label>
+                <i class="ph ph-at"></i>
+              </div>
+              <div class="input-group">
+                <input type="text" id="reg-city" placeholder=" " required>
+                <label for="reg-city">City</label>
+                <i class="ph ph-buildings"></i>
+              </div>
+            </div>
+            
+            <!-- Right column -->
+            <div class="column">
+              <div class="input-group">
+                <input type="text" id="reg-lname" placeholder=" " required>
+                <label for="reg-lname">Last Name</label>
+                <i class="ph ph-identification-badge"></i>
+              </div>
+              <div class="input-group">
+                <input type="tel" id="reg-phone" placeholder=" " required>
+                <label for="reg-phone">Phone Number</label>
+                <i class="ph ph-phone"></i>
+              </div>
+              <div class="input-group">
+                <input type="text" id="reg-country" placeholder=" " required>
+                <label for="reg-country">Country</label>
+                <i class="ph ph-globe-hemisphere-west"></i>
+              </div>
+            </div>
+            
+          </div>
+          
+          <div class="textarea-group">
+            <textarea id="reg-info" placeholder=" " rows="3"></textarea>
+            <label for="reg-info">Additional Information (Travel Preferences, Needs)</label>
+            <i class="ph ph-pencil-simple"></i>
+          </div>
+          
+          <button type="submit" class="btn btn-large btn-secondary">Register User</button>
+        </form>
+        
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

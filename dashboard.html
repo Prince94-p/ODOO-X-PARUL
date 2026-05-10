@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Traveloop | Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css">
+  <!-- Google Fonts: Outfit -->
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+</head>
+<body>
+
+  <!-- TOP HEADER SECTION -->
+  <header class="navbar">
+    <div class="logo">
+      <div class="logo-icon">
+        <i class="ph-fill ph-paper-plane-tilt"></i>
+      </div>
+      <span>Traveloop</span>
+    </div>
+    <div class="nav-actions">
+      <button class="icon-btn"><i class="ph ph-bell"></i></button>
+      <div class="user-profile">
+        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80" alt="User Profile">
+      </div>
+    </div>
+  </header>
+
+  <main class="dashboard-content">
+    
+    <!-- HERO / BANNER SECTION -->
+    <section class="hero-banner">
+      <div class="hero-overlay">
+        <h1>Plan Your Next Journey</h1>
+        <p>Discover destinations, organize trips, and travel smarter.</p>
+        <button class="btn btn-primary">
+          Start Planning <i class="ph ph-arrow-right"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- SEARCH & FILTER SECTION -->
+    <section class="search-filter-bar">
+      <div class="search-input">
+        <i class="ph ph-magnifying-glass"></i>
+        <input type="text" placeholder="Search destinations, activities, or past trips...">
+      </div>
+      <div class="controls-group">
+        <button class="control-btn dropdown">
+          <i class="ph ph-squares-four"></i>
+          <span>Group By</span>
+          <i class="ph ph-caret-down caret"></i>
+        </button>
+        <button class="control-btn">
+          <i class="ph ph-faders"></i>
+          <span>Filter</span>
+        </button>
+        <button class="control-btn dropdown">
+          <i class="ph ph-sort-ascending"></i>
+          <span>Sort By</span>
+          <i class="ph ph-caret-down caret"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- TOP REGIONAL SELECTIONS SECTION -->
+    <section class="dashboard-section">
+      <div class="section-header">
+        <h2 class="section-heading">Top Regional Selections</h2>
+        <a href="#" class="view-all">View All</a>
+      </div>
+      <div class="destinations-grid">
+        
+        <div class="destination-card">
+          <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1516483638261-f40af5aa345d?auto=format&fit=crop&w=600&q=80');">
+            <div class="heart-icon"><i class="ph ph-heart"></i></div>
+          </div>
+          <div class="card-content">
+            <h3>Cinque Terre, Italy</h3>
+            <div class="card-info">
+              <span class="rating"><i class="ph-fill ph-star"></i> 4.9</span>
+              <span class="dot">•</span>
+              <span>Coastal Region</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="destination-card">
+          <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&fit=crop&w=600&q=80');">
+            <div class="heart-icon"><i class="ph ph-heart"></i></div>
+          </div>
+          <div class="card-content">
+            <h3>Paris, France</h3>
+            <div class="card-info">
+              <span class="rating"><i class="ph-fill ph-star"></i> 4.8</span>
+              <span class="dot">•</span>
+              <span>City Escape</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="destination-card">
+          <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1533929736458-ca588d08c8be?auto=format&fit=crop&w=600&q=80');">
+            <div class="heart-icon"><i class="ph ph-heart"></i></div>
+          </div>
+          <div class="card-content">
+            <h3>London, UK</h3>
+            <div class="card-info">
+              <span class="rating"><i class="ph-fill ph-star"></i> 4.7</span>
+              <span class="dot">•</span>
+              <span>Historic Hub</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="destination-card">
+          <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=600&q=80');">
+            <div class="heart-icon"><i class="ph ph-heart"></i></div>
+          </div>
+          <div class="card-content">
+            <h3>Dubai, UAE</h3>
+            <div class="card-info">
+              <span class="rating"><i class="ph-fill ph-star"></i> 4.9</span>
+              <span class="dot">•</span>
+              <span>Luxury Travel</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PREVIOUS TRIPS SECTION -->
+    <section class="dashboard-section">
+      <div class="section-header">
+        <h2 class="section-heading">Previous Trips</h2>
+        <a href="#" class="view-all">Trip History</a>
+      </div>
+      <div class="trips-grid">
+        
+        <div class="trip-card">
+          <div class="trip-image" style="background-image: url('https://images.unsplash.com/photo-1454496522488-7a8e488e8606?auto=format&fit=crop&w=600&q=80');"></div>
+          <div class="trip-content">
+            <div class="trip-main">
+              <h3>Alpine Adventure</h3>
+              <p class="trip-dates"><i class="ph ph-calendar-blank"></i> Oct 12 - Oct 19, 2025</p>
+            </div>
+            <div class="trip-meta">
+              <span class="budget-tag tag-medium">Medium Budget</span>
+              <div class="trip-status">
+                <span class="status-dot completed"></span> Completed
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="trip-card">
+          <div class="trip-image" style="background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80');"></div>
+          <div class="trip-content">
+            <div class="trip-main">
+              <h3>Tropical Getaway</h3>
+              <p class="trip-dates"><i class="ph ph-calendar-blank"></i> Jan 05 - Jan 14, 2025</p>
+            </div>
+            <div class="trip-meta">
+              <span class="budget-tag tag-high">Premium</span>
+              <div class="trip-status">
+                <span class="status-dot completed"></span> Completed
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="trip-card">
+          <div class="trip-image" style="background-image: url('https://images.unsplash.com/photo-1531572753322-ad063cecc140?auto=format&fit=crop&w=600&q=80');"></div>
+          <div class="trip-content">
+            <div class="trip-main">
+              <h3>Roman Holiday</h3>
+              <p class="trip-dates"><i class="ph ph-calendar-blank"></i> Mar 20 - Mar 25, 2024</p>
+            </div>
+            <div class="trip-meta">
+              <span class="budget-tag tag-low">Economy</span>
+              <div class="trip-status">
+                <span class="status-dot completed"></span> Completed
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- BOTTOM ACTION BUTTON -->
+  <button class="fab" onclick="window.location.href='create-trip.html'">
+    <i class="ph ph-plus"></i> Plan a Trip
+  </button>
+
+</body>
+</html>
